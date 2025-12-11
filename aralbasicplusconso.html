@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ARAL BASIC AND PLUS CONSOLIDATOR — Modern Edition</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+
+<!-- XLSX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+/* ---------- Modern Design System ---------- */
+:root {
+  /* Color Palette */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --secondary: #7c3aed;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #06b6d4;
+  
+  /* Neutral Colors */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-overlay: rgba(15, 23, 42, 0.8);
+  
+  /* Surface Colors */
+  --surface: #ffffff;
+  --surface-hover: #f8fafc;
+  --surface-border: #e2e8f0;
+  --surface-shadow: rgba(0, 0, 0, 0.1);
+  
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* Dark Mode Variables */
+:root.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-overlay: rgba(15, 23, 42, 0.95);
+  
+  --surface: #1e293b;
+  --surface-hover: #334155;
+  --surface-border: #475569;
+  --surface-shadow: rgba(0, 0, 0, 0.3);
+  
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  
+  color-scheme: dark;
+}
+
+/* ---------- Base Styles ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--gray-800);
+  background: var(--bg-secondary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root.dark body {
+  color: var(--gray-200);
+  background: var(--bg-primary);
+}
+
+/* ---------- Background Pattern ---------- */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+:root.dark body::before {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+}
+
+/* ---------- Header ---------- */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.header-logo {
+  width: 90px;
+  height: 100px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast);
+}
+
+.header-logo:hover {
+  transform: scale(1.05);
+}
+
+.header-title {
+  color: white;
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:root.dark .header-title {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- Action Bar ---------- */
+.action-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 132px;
+  z-index: 900;
+}
+
+.action-bar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ---------- Button Styles ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background var(--transition-fast);
+}
+
+.btn:hover::before {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Button Variants */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #f87171 0%, var(--danger) 100%);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-ghost:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+:root.dark .btn-secondary {
+  background: var(--gray-800);
+  color: var(--gray-200);
+  border-color: var(--gray-600);
+}
+
+:root.dark .btn-secondary:hover {
+  background: var(--gray-700);
+  color: var(--gray-100);
+}
+
+/* Icon styles */
+.btn i {
+  font-size: var(--font-size-sm);
+}
+
+/* ---------- Filter Section ---------- */
+.filter-section {
+  background: var(--surface);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  align-items: end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.filter-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter-label i {
+  font-size: var(--font-size-xs);
+  color: var(--primary);
+}
+
+:root.dark .filter-label {
+  color: var(--gray-300);
+}
+
+.filter-select,
+.filter-input {
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--gray-800);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.filter-select:hover,
+.filter-input:hover {
+  border-color: var(--gray-300);
+}
+
+.filter-select:focus,
+.filter-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+:root.dark .filter-select,
+:root.dark .filter-input {
+  background: var(--gray-800);
+  border-color: var(--gray-600);
+  color: var(--gray-200);
+}
+
+:root.dark .filter-select:hover,
+:root.dark .filter-input:hover {
+  border-color: var(--gray-500);
+}
+
+:root.dark .filter-select:focus,
+:root.dark .filter-input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* ---------- Main Content ---------- */
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+/* ---------- Table Styles ---------- */
+.table-container {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 70vh;
+  width: 100%;
+}
+
+.data-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--font-size-sm);
+  table-layout: fixed;
+}
+
+.data-table thead {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.data-table th {
+  padding: var(--space-4) var(--space-2);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: var(--font-size-xs);
+  text-align: center;
+  white-space: normal;
+  line-height: 1.2;
+  max-width: 100px;
+  border: 1px solid var(--primary-dark);
+  border-bottom: 2px solid var(--primary-dark);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid var(--surface-border);
+  transition: background-color var(--transition-fast);
+}
+
+.data-table tbody tr:hover {
+  background: var(--surface-hover);
+}
+
+.data-table td {
+  padding: var(--space-3) var(--space-3);
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-700);
+  background: var(--bg-primary);
+}
+
+:root.dark .data-table td {
+  color: var(--gray-300);
+  border-color: var(--gray-600);
+  background: var(--bg-secondary);
+}
+
+:root.dark .data-table tbody tr:hover {
+  background: var(--bg-tertiary);
+}
+
+/* Checkbox styles */
+.row-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+/* Set specific column widths for better layout */
+.data-table th:nth-child(1) { width: 30px; } /* Checkbox */
+.data-table th:nth-child(2) { width: 76px; } /* Legislative District */
+.data-table th:nth-child(3) { width: 80px; } /* District */
+.data-table th:nth-child(4) { width: 200px; } /* School Name */
+.data-table th:nth-child(5) { width: 100px; } /* ARAL Program */
+.data-table th:nth-child(6) { width: 72px; } /* Week Performed */
+.data-table th:nth-child(7) { width: 75px; } /* Consistent */
+.data-table th:nth-child(8) { width: 80px; } /* Highly Proficient */
+.data-table th:nth-child(9) { width: 73px; } /* Proficient */
+.data-table th:nth-child(10) { width: 75px; } /* Developing */
+.data-table th:nth-child(11) { width: 73px; } /* Needs Intensive Guidance */
+.data-table th:nth-child(12) { width: 80px; } /* Specialized Intervention */
+
+/* Editable cells */
+.editable-cell {
+  cursor: text;
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+.editable-cell:hover {
+  background: var(--bg-tertiary);
+}
+
+.editable-cell:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  background: var(--bg-primary);
+}
+
+:root.dark .editable-cell:hover {
+  background: var(--gray-700);
+}
+
+:root.dark .editable-cell:focus {
+  background: var(--gray-800);
+}
+
+/* Summary row */
+.summary-row {
+  background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+  font-weight: 700;
+  color: var(--gray-900);
+  border-top: 2px solid var(--gray-300);
+}
+
+:root.dark .summary-row {
+  background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-700) 100%);
+  color: var(--gray-100);
+  border-color: var(--gray-600);
+}
+
+.summary-row td {
+  font-weight: 700;
+  padding: var(--space-4) var(--space-3);
+}
+
+.summary-label {
+  text-align: right !important;
+  font-size: var(--font-size-base);
+}
+
+.summary-value {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+}
+
+/* ---------- Modal Styles ---------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.modal-overlay.active {
+  display: flex;
+  animation: fadeIn var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-2xl);
+  padding: var(--space-8);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--surface-border);
+  animation: slideUp var(--transition-base);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto var(--space-4);
+  background: linear-gradient(135deg, var(--warning) 0%, #f59e0b 100%);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-xl);
+}
+
+.modal-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-4);
+}
+
+:root.dark .modal-title {
+  color: var(--gray-100);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+
+/* ---------- Info Toast ---------- */
+.info-toast {
+  display: none;
+  position: fixed;
+  top: var(--space-6);
+  right: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-6);
+  box-shadow: var(--shadow-xl);
+  z-index: 9998;
+  max-width: 400px;
+  animation: slideInRight var(--transition-base);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.info-toast.active {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.info-toast-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-sm);
+  flex-shrink: 0;
+}
+
+.info-toast-message {
+  color: var(--gray-700);
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+}
+
+:root.dark .info-toast {
+  background: var(--gray-800);
+  border-color: var(--gray-600);
+}
+
+:root.dark .info-toast-message {
+  color: var(--gray-200);
+}
+
+/* ---------- Floating Action Button ---------- */
+.fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-lg);
+  box-shadow: var(--shadow-xl);
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-fast);
+  z-index: 1000;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-2xl);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+/* ---------- Empty State ---------- */
+.empty-state {
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+  color: var(--gray-500);
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-6);
+  background: var(--gray-100);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+  font-size: var(--font-size-3xl);
+}
+
+.empty-state-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--gray-700);
+  margin-bottom: var(--space-3);
+}
+
+.empty-state-description {
+  font-size: var(--font-size-base);
+  color: var(--gray-500);
+  margin-bottom: var(--space-6);
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 768px) {
+  .header-content {
+    padding: var(--space-4) var(--space-4);
+    gap: var(--space-4);
+  }
+  
+  .header-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .header-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .action-bar-content {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-2);
+  }
+  
+  .btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+  
+  .filter-content {
+    padding: var(--space-4) var(--space-4);
+    grid-template-columns: 1fr;
+  }
+  
+  .main-content {
+    padding: var(--space-6) var(--space-4);
+  }
+  
+  .modal {
+    padding: var(--space-6);
+    margin: var(--space-4);
+  }
+  
+  .fab {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    width: 56px;
+    height: 56px;
+    font-size: var(--font-size-base);
+  }
+  
+  .info-toast {
+    top: var(--space-4);
+    right: var(--space-4);
+    left: var(--space-4);
+    max-width: none;
+  }
+}
+
+/* Print styles for fitting to one page */
+@media print {
+  .header,
+  .action-bar,
+  .filter-section,
+  .fab {
+    display: none !important;
+  }
+  
+  .main-content {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .table-container {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .table-wrapper {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  
+  .data-table {
+    table-layout: auto !important;
+    width: 100% !important;
+    font-size: 10pt !important;
+  }
+  
+  .data-table th {
+    padding: 6pt 4pt !important;
+    font-size: 8pt !important;
+    line-height: 1.1 !important;
+    max-width: none !important;
+    white-space: normal !important;
+  }
+  
+  .data-table td {
+    padding: 4pt 2pt !important;
+    font-size: 9pt !important;
+    line-height: 1.1 !important;
+  }
+  
+  .summary-row {
+    background: #f0f0f0 !important;
+  }
+  
+  @page {
+    margin: 0.5in;
+    size: landscape;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Compact view for single page display */
+.compact-view .data-table {
+  table-layout: auto !important;
+}
+
+.compact-view .data-table th {
+  padding: var(--space-2) var(--space-1) !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+  max-width: none !important;
+}
+
+.compact-view .data-table td {
+  padding: var(--space-1) var(--space-1) !important;
+  font-size: 11px !important;
+  line-height: 1.1 !important;
+}
+
+.compact-view .table-wrapper {
+  max-height: none !important;
+}
+
+.compact-view .header-logo {
+  width: 60px;
+  height: 60px;
+}
+
+.compact-view .summary-value {
+  font-size: var(--font-size-base) !important;
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .data-table {
+    font-size: var(--font-size-xs);
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: var(--space-2) var(--space-1);
+  }
+}
+
+/* ---------- Loading States ---------- */
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Accessibility ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible for better keyboard navigation */
+.focus-visible:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" role="banner">
+  <div class="header-content">
+    <img src="deped isabela.png" alt="DepEd Isabela Logo" class="header-logo" onerror="this.style.display='none'">
+    <h1 class="header-title">ARAL BASIC AND PLUS CONSOLIDATOR</h1>
+    <img src="Logo.png" alt="Organization Logo" class="header-logo" onerror="this.style.display='none'">
+  </div>
+</header>
+
+<!-- Action Bar -->
+<div class="action-bar">
+  <div class="action-bar-content">
+    <button id="exportBtn" class="btn btn-primary" title="Export filtered data to Excel">
+      <i class="fas fa-file-export"></i>
+      Export to Excel
+    </button>
+    <button id="deleteSelectedBtn" class="btn btn-secondary" title="Delete selected rows">
+      <i class="fas fa-trash"></i>
+      Delete Selected
+    </button>
+    <label for="uploadExcel" class="btn btn-primary" style="cursor: pointer;">
+      <i class="fas fa-file-upload"></i>
+      Upload Report
+    </label>
+    <button id="deleteDataBtn" class="btn btn-danger" title="Delete all saved data">
+      <i class="fas fa-trash-alt"></i>
+      Delete All
+    </button>
+    <button id="darkToggle" class="btn btn-ghost" title="Toggle dark mode">
+      <i class="fas fa-moon"></i>
+      Dark
+    </button>
+    <button id="compactToggle" class="btn btn-ghost" title="Toggle compact view">
+      <i class="fas fa-compress"></i>
+      Compact
+    </button>
+  </div>
+</div>
+
+<!-- Filter Section -->
+<section class="filter-section" aria-label="Data Filters">
+  <div class="filter-content">
+    <div class="filter-group">
+      <label for="filterLegislative" class="filter-label">
+        <i class="fas fa-landmark"></i>
+        Show by Legislative District
+      </label>
+      <select id="filterLegislative" class="filter-select">
+        <option value="">All Districts</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filterDistrict" class="filter-label">
+        <i class="fas fa-map-marker-alt"></i>
+        Show by District
+      </label>
+      <select id="filterDistrict" class="filter-select">
+        <option value="">All Districts</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filterSchool" class="filter-label">
+        <i class="fas fa-school"></i>
+        Show by School Name
+      </label>
+      <select id="filterSchool" class="filter-select">
+        <option value="">All Schools</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filterProgram" class="filter-label">
+        <i class="fas fa-graduation-cap"></i>
+        Show by ARAL Program
+      </label>
+      <select id="filterProgram" class="filter-select">
+        <option value="">All Programs</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filterWeek" class="filter-label">
+        <i class="fas fa-calendar-week"></i>
+        Show by Week Performed
+      </label>
+      <select id="filterWeek" class="filter-select">
+        <option value="">All Weeks</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<main class="main-content" role="main">
+  <div class="table-container">
+    <div class="table-wrapper">
+      <table id="aralTable" class="data-table" aria-label="ARAL data table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Legislative District</th>
+            <th>District</th>
+            <th>School Name</th>
+            <th>ARAL Program</th>
+            <th>Week Performed</th>
+            <th>Consistent</th>
+            <th>Highly Proficient</th>
+            <th>Proficient</th>
+            <th>Developing</th>
+            <th>Needs Intensive Guidance</th>
+            <th>Specialized Intervention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <div class="empty-state-icon">
+        <i class="fas fa-database"></i>
+      </div>
+      <h2 class="empty-state-title">No Data Available</h2>
+      <p class="empty-state-description">Upload your first ARAL report to get started with data consolidation.</p>
+      <button class="btn btn-primary" onclick="document.getElementById('uploadExcel').click()">
+        <i class="fas fa-upload"></i>
+        Upload First Report
+      </button>
+    </div>
+  </div>
+</main>
+
+<!-- Hidden file input -->
+<input id="uploadExcel" type="file" accept=".xlsx,.xls" multiple style="display:none" />
+
+<!-- Confirmation Modal -->
+<div id="overlayMessage" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal">
+    <div class="modal-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <h2 class="modal-title" id="confirmationMessage">Are you sure?</h2>
+    <div class="modal-actions">
+      <button id="yesBtn" class="btn btn-primary">
+        <i class="fas fa-check"></i>
+        Yes
+      </button>
+      <button id="noBtn" class="btn btn-secondary">
+        <i class="fas fa-times"></i>
+        No
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Info Toast -->
+<div id="infoToast" class="info-toast" role="status" aria-live="polite">
+  <div class="info-toast-icon">
+    <i class="fas fa-check"></i>
+  </div>
+  <div class="info-toast-message" id="infoToastMessage"></div>
+</div>
+
+<!-- Floating Action Button -->
+<button id="fabUpload" class="fab" title="Upload Excel files">
+  <i class="fas fa-upload"></i>
+</button>
+
+<script>
+(function() {
+  'use strict';
+  
+  // DOM Elements
+  const filters = {
+    leg: document.getElementById('filterLegislative'),
+    dist: document.getElementById('filterDistrict'),
+    school: document.getElementById('filterSchool'),
+    prog: document.getElementById('filterProgram'),
+    week: document.getElementById('filterWeek')
+  };
+  
+  const tbody = document.querySelector('#aralTable tbody');
+  const emptyState = document.getElementById('emptyState');
+  
+  // Initialize storage
+  function initStorage() {
+    if (!localStorage.getItem('aralData')) {
+      localStorage.setItem('aralData', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('aralDark')) {
+      localStorage.setItem('aralDark', 'false');
+    }
+    if (!localStorage.getItem('aralCompact')) {
+      localStorage.setItem('aralCompact', 'false');
+    }
+  }
+
+  // Apply dark mode from storage
+  function applyDarkFromStorage() {
+    const isDark = localStorage.getItem('aralDark') === 'true';
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    updateDarkModeButton(isDark);
+  }
+
+  function updateDarkModeButton(isDark) {
+    const darkToggle = document.getElementById('darkToggle');
+    if (isDark) {
+      darkToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+    } else {
+      darkToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+    }
+  }
+
+  // Initialize on page load
+  window.addEventListener('load', () => {
+    initStorage();
+    applyDarkFromStorage();
+    applyCompactFromStorage();
+    window.allRows = JSON.parse(localStorage.getItem('aralData')) || [];
+    if (window.allRows.length > 0) {
+      populateFilters();
+      renderTable();
+    } else {
+      showEmptyState();
+    }
+  });
+
+  // Save data to localStorage
+  function saveData() {
+    localStorage.setItem('aralData', JSON.stringify(window.allRows));
+  }
+
+  // Show/hide empty state
+  function showEmptyState() {
+    emptyState.style.display = 'block';
+    document.querySelector('.table-wrapper').style.display = 'none';
+  }
+
+  function hideEmptyState() {
+    emptyState.style.display = 'none';
+    document.querySelector('.table-wrapper').style.display = 'block';
+  }
+
+  // Populate filter dropdowns
+  function populateFilters() {
+    const sets = {
+      leg: new Set(),
+      dist: new Set(),
+      school: new Set(),
+      prog: new Set(),
+      week: new Set()
+    };
+    
+    window.allRows.forEach(row => {
+      sets.leg.add(row[0] || '');
+      sets.dist.add(row[1] || '');
+      sets.school.add(row[2] || '');
+      sets.prog.add(row[3] || '');
+      sets.week.add(row[4] || '');
+    });
+    
+    for (const key in filters) {
+      const select = filters[key];
+      select.innerHTML = '<option value="">All</option>';
+      Array.from(sets[key])
+        .filter(Boolean)
+        .sort()
+        .forEach(value => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+    }
+  }
+
+  // Render table with filtered data
+  function renderTable() {
+    tbody.innerHTML = '';
+    
+    const filtered = window.allRows.filter(row => {
+      return (!filters.leg.value || row[0] === filters.leg.value) &&
+             (!filters.dist.value || row[1] === filters.dist.value) &&
+             (!filters.school.value || row[2] === filters.school.value) &&
+             (!filters.prog.value || row[3] === filters.prog.value) &&
+             (!filters.week.value || row[4] === filters.week.value);
+    });
+    
+    if (filtered.length === 0 && window.allRows.length === 0) {
+      showEmptyState();
+      return;
+    }
+    
+    hideEmptyState();
+    filtered.forEach(row => insertRow(row));
+    updateSums();
+  }
+
+  // Insert a row into the table
+  function insertRow(row) {
+    const tr = document.createElement('tr');
+    
+    // Checkbox cell (before data)
+    const tdCheckbox = document.createElement('td');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'row-checkbox row-checkbox-item';
+    tdCheckbox.appendChild(checkbox);
+    tr.appendChild(tdCheckbox);
+    
+    // Data cells
+    for (let i = 0; i < 11; i++) {
+      const td = document.createElement('td');
+      td.contentEditable = false;
+      td.textContent = row[i] || '';
+      
+      // Make cells editable starting from column 5 (Consistent - index 5)
+      if (i >= 5) {
+        td.contentEditable = true;
+        td.className = 'editable-cell';
+        td.addEventListener('input', () => saveTable());
+        td.addEventListener('focus', () => td.classList.add('focus-visible'));
+        td.addEventListener('blur', () => td.classList.remove('focus-visible'));
+      }
+      
+      tr.appendChild(td);
+    }
+    
+    tbody.appendChild(tr);
+  }
+
+  // Save table data
+  function saveTable() {
+    window.allRows = [];
+    document.querySelectorAll('#aralTable tbody tr').forEach(tr => {
+      if (tr.classList.contains('summary-row')) return;
+      
+      const row = [];
+      for (let i = 1; i < 12; i++) {
+        row.push(tr.cells[i].textContent);
+      }
+      window.allRows.push(row);
+    });
+    saveData();
+    populateFilters();
+  }
+
+  // Filter event listeners
+  Object.values(filters).forEach(filter => {
+    filter.addEventListener('change', renderTable);
+  });
+
+  // Show confirmation modal
+  function showConfirmationModal(message, onYes, onNo) {
+    const overlay = document.getElementById('overlayMessage');
+    const messageElement = document.getElementById('confirmationMessage');
+    
+    messageElement.textContent = message;
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    
+    const closeAndExecute = (callback) => {
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+      if (callback) callback();
+    };
+    
+    yesBtn.onclick = () => closeAndExecute(onYes);
+    noBtn.onclick = () => closeAndExecute(onNo);
+    
+    // Close on overlay click
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeAndExecute(onNo);
+      }
+    });
+  }
+
+  // Show info toast
+  function showInfoToast(message, duration = 3000) {
+    const toast = document.getElementById('infoToast');
+    const messageElement = document.getElementById('infoToastMessage');
+    
+    messageElement.textContent = message;
+    toast.classList.add('active');
+    
+    // Auto-hide after duration
+    setTimeout(() => {
+      toast.classList.remove('active');
+    }, duration);
+    
+    // Hide on click
+    toast.addEventListener('click', () => {
+      toast.classList.remove('active');
+    });
+  }
+
+  // File upload handler
+  const uploadInput = document.getElementById('uploadExcel');
+  uploadInput.addEventListener('change', async(e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+    
+    let uploadedCount = 0;
+    let duplicateCount = 0;
+    
+    for (const file of files) {
+      try {
+        const buffer = await file.arrayBuffer();
+        const workbook = XLSX.read(buffer, { type: 'array' });
+        
+        workbook.SheetNames.forEach(sheetName => {
+          const worksheet = workbook.Sheets[sheetName];
+          const data = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
+          
+          if (data.length >= 4) {
+            const row4 = data[3];
+            while (row4.length < 11) row4.push('');
+            
+            // Check for duplicates
+            const isDuplicate = window.allRows.some(existing => {
+              for (let i = 0; i < 5; i++) {
+                if (existing[i] !== row4[i]) return false;
+              }
+              return true;
+            });
+            
+            if (isDuplicate) {
+              duplicateCount++;
+            } else {
+              window.allRows.push(row4);
+              uploadedCount++;
+            }
+          }
+        });
+      } catch (err) {
+        console.error('Upload error:', err);
+        showInfoToast(`Error reading file: ${file.name}`);
+      }
+    }
+    
+    if (uploadedCount > 0) {
+      saveData();
+      populateFilters();
+      renderTable();
+      showInfoToast(`${uploadedCount} record(s) uploaded successfully!`);
+    }
+    
+    if (duplicateCount > 0) {
+      showInfoToast(`${duplicateCount} duplicate record(s) skipped.`);
+    }
+    
+    e.target.value = '';
+  });
+
+  // FAB upload button
+  document.getElementById('fabUpload').addEventListener('click', () => {
+    uploadInput.click();
+  });
+
+  // Delete all data
+  document.getElementById('deleteDataBtn').addEventListener('click', () => {
+    showConfirmationModal(
+      'Are you sure you want to delete ALL records? This action cannot be undone.',
+      () => {
+        window.allRows = [];
+        localStorage.removeItem('aralData');
+        tbody.innerHTML = '';
+        populateFilters();
+        renderTable();
+        showInfoToast('All records have been deleted.');
+      },
+      () => {}
+    );
+  });
+
+  // Delete selected rows
+  document.getElementById('deleteSelectedBtn').addEventListener('click', () => {
+    const checkboxes = Array.from(document.querySelectorAll('.row-checkbox-item'));
+    const toDelete = [];
+    
+    checkboxes.forEach((checkbox, index) => {
+      if (checkbox.checked) {
+        toDelete.push(index);
+      }
+    });
+    
+    if (toDelete.length === 0) {
+      showInfoToast('Please select at least one record to delete.');
+      return;
+    }
+    
+    showConfirmationModal(
+      `You are about to delete ${toDelete.length} record(s). Continue?`,
+      () => {
+        // Remove rows in reverse order to maintain indices
+        for (let i = toDelete.length - 1; i >= 0; i--) {
+          window.allRows.splice(toDelete[i], 1);
+        }
+        saveData();
+        renderTable();
+        showInfoToast(`${toDelete.length} record(s) deleted.`);
+      },
+      () => {}
+    );
+  });
+
+  // Export to Excel
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const workbook = XLSX.utils.book_new();
+    const worksheetData = [
+      ['Legislative District', 'District', 'School Name', 'ARAL Program', 'Week Performed',
+       'Consistent', 'Highly Proficient', 'Proficient', 'Developing', 'Needs Intensive Guidance', 'Specialized Intervention']
+    ];
+    
+    document.querySelectorAll('#aralTable tbody tr').forEach(tr => {
+      if (tr.classList.contains('summary-row')) return;
+      if (tr.style.display !== 'none' && tr.offsetParent !== null) {
+        const rowData = [];
+        for (let i = 1; i < tr.cells.length; i++) {
+          rowData.push(tr.cells[i].textContent);
+        }
+        worksheetData.push(rowData);
+      }
+    });
+    
+    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data');
+    XLSX.writeFile(workbook, 'CONSOLIDATED_ARAL_RECORDS.xlsx');
+    showInfoToast('Data exported successfully!');
+  });
+
+  // Update summary row
+  function updateSums() {
+    // Remove existing summary row
+    const existingSummary = document.querySelector('.summary-row');
+    if (existingSummary) existingSummary.remove();
+    
+    const sumColumns = [6, 7, 8, 9, 10, 11]; // Column indices to sum
+    const sums = Array(sumColumns.length).fill(0);
+    
+    document.querySelectorAll('#aralTable tbody tr').forEach(tr => {
+      if (tr.classList.contains('summary-row')) return;
+      const cells = tr.cells;
+      if (cells.length < 12) return;
+      
+      sumColumns.forEach((colIndex, idx) => {
+        const value = parseFloat(cells[colIndex].textContent || 0);
+        if (!isNaN(value)) {
+          sums[idx] += value;
+        }
+      });
+    });
+    
+    // Create summary row
+    const summaryRow = document.createElement('tr');
+    summaryRow.className = 'summary-row';
+    
+    // Label cell (includes checkbox column)
+    const labelCell = document.createElement('td');
+    labelCell.colSpan = 6;
+    labelCell.className = 'summary-label';
+    labelCell.textContent = 'Total';
+    summaryRow.appendChild(labelCell);
+    
+    // Sum cells
+    sums.forEach(value => {
+      const cell = document.createElement('td');
+      cell.className = 'summary-value';
+      cell.textContent = value.toFixed(0);
+      summaryRow.appendChild(cell);
+    });
+    
+    tbody.appendChild(summaryRow);
+  }
+
+  // Dark mode toggle
+  document.getElementById('darkToggle').addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('aralDark', isDark ? 'true' : 'false');
+    updateDarkModeButton(isDark);
+  });
+
+  // Compact view toggle
+  document.getElementById('compactToggle').addEventListener('click', () => {
+    const body = document.body;
+    const compactBtn = document.getElementById('compactToggle');
+    
+    if (body.classList.contains('compact-view')) {
+      body.classList.remove('compact-view');
+      compactBtn.innerHTML = '<i class="fas fa-compress"></i> Compact';
+      localStorage.setItem('aralCompact', 'false');
+    } else {
+      body.classList.add('compact-view');
+      compactBtn.innerHTML = '<i class="fas fa-expand"></i> Expand';
+      localStorage.setItem('aralCompact', 'true');
+    }
+  });
+
+  // Apply compact view from storage
+  function applyCompactFromStorage() {
+    const isCompact = localStorage.getItem('aralCompact') === 'true';
+    if (isCompact) {
+      document.body.classList.add('compact-view');
+      document.getElementById('compactToggle').innerHTML = '<i class="fas fa-expand"></i> Expand';
+    }
+  }
+
+  // Select all functionality (without header checkbox)
+  function updateSelectAllState() {
+    const checkboxes = document.querySelectorAll('.row-checkbox-item');
+    const checkedBoxes = document.querySelectorAll('.row-checkbox-item:checked');
+    
+    // You could optionally add a "select all" button or other UI element here
+    // For now, individual checkboxes work independently
+  }
+
+  // Add event listener for individual checkboxes
+  document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('row-checkbox-item')) {
+      updateSelectAllState();
+    }
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + E for export
+    if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+      e.preventDefault();
+      document.getElementById('exportBtn').click();
+    }
+    
+    // Ctrl/Cmd + U for upload
+    if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+      e.preventDefault();
+      uploadInput.click();
+    }
+    
+    // Ctrl/Cmd + D for dark mode
+    if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+      e.preventDefault();
+      document.getElementById('darkToggle').click();
+    }
+    
+    // Ctrl/Cmd + C for compact view
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+      e.preventDefault();
+      document.getElementById('compactToggle').click();
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
